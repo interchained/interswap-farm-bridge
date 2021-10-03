@@ -17,6 +17,7 @@ const farms: FarmConfig[] = [
     quoteTokenSymbol: QuoteToken.BNB,
     quoteTokenAdresses: contracts.wbnb,
   },
+
   {
     pid: 1,
     lpSymbol: 'CRYSTAL-BNB LP',
@@ -24,13 +25,29 @@ const farms: FarmConfig[] = [
       97: '0xe70b7523f4bffa1f2e88d2ba709afd026030f412',
       56: '0xB1A01410AEb9c4929Bdb99Ba776f90F142855AF4',
     },
-    tokenSymbol: 'CAKE',
+    tokenSymbol: 'CRYSTAL',
     tokenAddresses: {
       97: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
       56: '0x4ca6B6b8F10EB17DbD1f8c3F313Eca2F779C6e0B',
     },
     quoteTokenSymbol: QuoteToken.BNB,
     quoteTokenAdresses: contracts.wbnb,
+  },
+
+  {
+    pid: 2,
+    lpSymbol: 'CRYSTAL-BUSD LP',
+    lpAddresses: {
+      97: '',
+      56: '0xF487bfc289c839c7E7a9Fd7586123967B2A08a2f',
+    },
+    tokenSymbol: 'CRYSTAL',
+    tokenAddresses: {
+      97: '',
+      56: '0x4ca6B6b8F10EB17DbD1f8c3F313Eca2F779C6e0B',
+    },
+    quoteTokenSymbol: QuoteToken.BUSD,
+    quoteTokenAdresses: contracts.busd,
   },
 ]
 

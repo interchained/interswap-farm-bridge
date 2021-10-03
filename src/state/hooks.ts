@@ -19,6 +19,7 @@ import { fetchProfile } from './profile'
 import { fetchTeam, fetchTeams } from './teams'
 import { fetchAchievements } from './achievements'
 import useGetPriceData from '../components/Menu/getPrice'
+import useGetCrystalPriceData from '../components/Menu/getCrystalPrice'
 
 const ZERO = new BigNumber(0)
 
@@ -90,6 +91,23 @@ export const usePriceBnbBusd = (): BigNumber => {
 
   return priceData2;
 
+}
+
+export const usePriceCrystalBusd = (): BigNumber => {
+  // const pid = 1 // CAKE-BNB LP
+  const pid = 1;
+  // const bnbPriceUSD = usePriceBnbBusd()
+
+  let crystalData = useGetCrystalPriceData()
+
+  // @ts-ignore  
+  crystalData = new BigNumber(crystalData)
+
+  const farm = useFarmFromPid(pid)
+
+  //  @ts-ignore
+  return farm.tokenPriceVsQuote ? crystalData.times(farm.tokenPriceVsQuote) : ZERO
+  
 }
 
 export const usePriceCakeBusd = (): BigNumber => {

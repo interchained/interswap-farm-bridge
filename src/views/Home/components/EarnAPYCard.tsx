@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom'
 import useI18n from 'hooks/useI18n'
 import BigNumber from 'bignumber.js'
 import { QuoteToken } from 'config/constants/types'
-import { useFarms, usePriceBnbBusd } from 'state/hooks'
+import { useFarms, usePriceBnbBusd, usePriceCrystalBusd } from 'state/hooks'
 import { BLOCKS_PER_YEAR, CAKE_PER_BLOCK, CAKE_POOL_PID } from 'config'
 
 const StyledFarmStakingCard = styled(Card)`
@@ -25,6 +25,7 @@ const EarnAPYCard = () => {
   const TranslateString = useI18n()
   const farmsLP = useFarms()
   const bnbPrice = usePriceBnbBusd()
+  const crystalPrice = usePriceCrystalBusd()
 
   const maxAPY = useRef(Number.MIN_VALUE)
 
@@ -50,6 +51,8 @@ const EarnAPYCard = () => {
         let apy = cakePriceVsBNB.times(cakeRewardPerYear).div(farm.lpTotalInQuoteToken)
 
         if (farm.quoteTokenSymbol === QuoteToken.BUSD) {
+          apy = cakePriceVsBNB.times(cakeRewardPerYear).div(farm.lpTotalInQuoteToken).times(bnbPrice)
+        } if (farm.quoteTokenSymbol === QuoteToken.CRYSTAL) {
           apy = cakePriceVsBNB.times(cakeRewardPerYear).div(farm.lpTotalInQuoteToken).times(bnbPrice)
         } else if (farm.quoteTokenSymbol === QuoteToken.CAKE) {
           apy = cakeRewardPerYear.div(farm.lpTotalInQuoteToken)
