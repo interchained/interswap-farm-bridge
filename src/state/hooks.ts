@@ -18,6 +18,8 @@ import { State, Farm, Pool, ProfileState, TeamsState, AchievementState } from '.
 import { fetchProfile } from './profile'
 import { fetchTeam, fetchTeams } from './teams'
 import { fetchAchievements } from './achievements'
+import useGetPriceData from '../components/Menu/getPrice'
+import useGetCrystalPriceData from '../components/Menu/getCrystalPrice'
 
 const ZERO = new BigNumber(0)
 
@@ -79,32 +81,52 @@ export const usePoolFromPid = (sousId): Pool => {
 }
 
 // Prices
-
 export const usePriceBnbBusd = (): BigNumber => {
-  const pid = 2 // BUSD-BNB LP
+  // const pid = 2 // BUSD-BNB LP
+  // @ts-ignore
+  const priceData = useGetPriceData()
+
+  // @ts-ignore
+  const priceData2 = new BigNumber(priceData)
+
+  return priceData2;
+
+}
+
+export const usePriceCrystalBusd = (): BigNumber => {
+  // const pid = 1 // CAKE-BNB LP
+  const pid = 1;
+  // const bnbPriceUSD = usePriceBnbBusd()
+
+  let crystalData = useGetCrystalPriceData()
+
+  // @ts-ignore  
+  crystalData = new BigNumber(crystalData)
+
   const farm = useFarmFromPid(pid)
-  return farm.tokenPriceVsQuote ? new BigNumber(1).div(farm.tokenPriceVsQuote) : ZERO
+
+  //  @ts-ignore
+  return farm.tokenPriceVsQuote ? crystalData.times(farm.tokenPriceVsQuote) : ZERO
+  
 }
 
 export const usePriceCakeBusd = (): BigNumber => {
-  const pid = 1 // CAKE-BNB LP
-  const bnbPriceUSD = usePriceBnbBusd()
+  // const pid = 1 // CAKE-BNB LP
+  const pid = 1;
+  // const bnbPriceUSD = usePriceBnbBusd()
+
+  let priceData = useGetPriceData()
+
+  // @ts-ignore  
+  priceData = new BigNumber(priceData)
+
   const farm = useFarmFromPid(pid)
-  return farm.tokenPriceVsQuote ? bnbPriceUSD.times(farm.tokenPriceVsQuote) : ZERO
+
+  //  @ts-ignore
+  return farm.tokenPriceVsQuote ? priceData.times(farm.tokenPriceVsQuote) : ZERO
+  
 }
 
-export const usePriceEthBusd = (): BigNumber => {
-  const pid = 14 // ETH-BNB LP
-  const bnbPriceUSD = usePriceBnbBusd()
-  const farm = useFarmFromPid(pid)
-  return farm.tokenPriceVsQuote ? bnbPriceUSD.times(farm.tokenPriceVsQuote) : ZERO
-}
-
-export const usePriceEthBnb = (): BigNumber => {
-  const priceBnbBusd = usePriceBnbBusd()
-  const priceEthBusd = usePriceEthBusd()
-  return priceEthBusd.div(priceBnbBusd)
-}
 
 // Toasts
 export const useToast = () => {

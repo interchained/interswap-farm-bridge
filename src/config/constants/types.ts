@@ -24,12 +24,14 @@ export interface Ifo {
 
 export enum QuoteToken {
   'BNB' = 'BNB',
-  'CAKE' = 'CAKE',
-  'SYRUP' = 'SYRUP',
+  'CAKE' = 'CRYSTAL',
+  'SYRUP' = 'CARBON',
   'BUSD' = 'BUSD',
   'TWT' = 'TWT',
   'UST' = 'UST',
   'ETH' = 'ETH',
+  'CRYSTAL' = 'CRYSTAL',
+  'CARBON' = 'CARBON',
   'COMP' = 'COMP',
   'SUSHI' = 'SUSHI',
 }
